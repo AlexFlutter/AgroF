@@ -36,21 +36,30 @@ class _HomePageWidgetState extends State<HomePageWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return Scaffold(
       key: scaffoldKey,
       resizeToAvoidBottomInset: false,
-      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+      backgroundColor: Color(0x00F1F4F8),
+      endDrawer: Container(
+        width: MediaQuery.of(context).size.width * 0.6,
+        child: Drawer(
+          elevation: 16.0,
+        ),
+      ),
       body: SafeArea(
         child: GestureDetector(
           onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Expanded(
-                child: Align(
-                  alignment: AlignmentDirectional(0.0, 0.6),
+          child: Container(
+            width: MediaQuery.of(context).size.width * 1.0,
+            height: MediaQuery.of(context).size.height * 1.0,
+            child: Stack(
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.width * 1.0,
+                  height: MediaQuery.of(context).size.height * 1.0,
+                  decoration: BoxDecoration(
+                    color: FlutterFlowTheme.of(context).secondaryBackground,
+                  ),
                   child: FlutterFlowGoogleMap(
                     controller: _model.googleMapsController,
                     onCameraIdle: (latLng) => _model.googleMapsCenter = latLng,
@@ -67,11 +76,36 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                     showCompass: true,
                     showMapToolbar: false,
                     showTraffic: false,
-                    centerMapOnMarkerTap: false,
+                    centerMapOnMarkerTap: true,
                   ),
                 ),
-              ),
-            ],
+                Align(
+                  alignment: AlignmentDirectional(-1.0, 0.0),
+                  child: Container(
+                    width: 400.0,
+                    height: MediaQuery.of(context).size.height * 1.0,
+                    decoration: BoxDecoration(
+                      color: Color(0xA2000000),
+                      boxShadow: [
+                        BoxShadow(
+                          blurRadius: 4.0,
+                          color: Color(0x4F000000),
+                          offset: Offset(0.0, 2.0),
+                        )
+                      ],
+                      borderRadius: BorderRadius.circular(25.0),
+                      shape: BoxShape.rectangle,
+                    ),
+                    alignment: AlignmentDirectional(0.0, 0.0),
+                    child: ListView(
+                      padding: EdgeInsets.zero,
+                      scrollDirection: Axis.vertical,
+                      children: [],
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
